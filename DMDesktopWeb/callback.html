@@ -4,11 +4,13 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script type="text/javascript" src="http://importerama.veverka.net/jquery.url.js"></script>
 	<script type="text/javascript">
-	jQuery(document).ready(function(){
-		var val = jQuery.url.attr("anchor").replace("access_token=", "");
-		jQuery("#valdiv").html(val);
-	});
-	
+	function S4() {
+		return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+	}
+	function guid() {
+		return (S4()+S4()+S4()+S4()+S4()).toUpperCase();
+	}
+	document.write(guid());
 	
 	</script>
 </head>
