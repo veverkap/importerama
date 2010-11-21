@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://importerama.veverka.net/jquery.url.js"></script>
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
+		var val = jQuery.url.attr("anchor").replace("access_token=", "");
+		jQuery("#valdiv").html(val);
+	});
+	
+	
+	</script>
+</head>
+<body id="valdiv">
+</body>
+</html>
