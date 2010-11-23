@@ -16,7 +16,7 @@
 			// Reads the content of the application descriptor file
             function setLocalVar(val) {
                 access_token = val;
-				$('#UI').hide();
+				$('#dm_frame').hide();
             }
 
             // Create an object that will be used to expose AIR functionality.
@@ -27,27 +27,29 @@
 			Exposed.setLocalVar = setLocalVar;
             
 			// Called from the onload event of the body element.
-			function doLoad() {
-               var frame = document.getElementById('UI').contentWindow.parentSandboxBridge = Exposed;
+			function doFrameLoad() {
+				$("#dm_frame").show();
+                var frame = document.getElementById('dm_frame').contentWindow.parentSandboxBridge = Exposed;
             }
 			
-			function showValue() {
-				alert(access_token);
-			}
-			
 			jQuery(document).ready(function(){
-				doLoad();
+				GetAccessToken();
+				if (access_token == null) {
+					doFrameLoad();
+				} else {
+					air.trace(access_token);
+				}
 			});
         </script>
     </head>
     <body>
-        <iframe id="UI"
+        <iframe id="dm_frame"
             src="https://api.dailymile.com/oauth/authorize?response_type=code&client_id=dk91QOkPgzChAP8oqBOB5gUKEk8afmDF7demeCtS&redirect_uri=http://importerama.veverka.net/callbacker.php"
             sandboxRoot="http://importerama.veverka.net/"
             documentRoot="app-resource:/"
             width="100%" 
             height="100%"
-            style="border: 0px; width:100%; height:410px">
+            style="border: 0px; width:100%; height:410px;display:none;">
         </iframe>
     </body>
 </html>
