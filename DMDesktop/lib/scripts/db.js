@@ -30,3 +30,21 @@ function GetAccessToken() {
 		return null;
 	}));
 }
+
+function SetAccessToken(token) {
+	air.Introspector.Console.log(connection);
+	if (!connection.connected) {
+		connection.open(dbFile);
+	}
+	
+	var statement = new air.SQLStatement();
+	statement.sqlConnection = connection;
+	statement.text = "INSERT INTO credentials (access_token) VALUES ('" + token + "')";
+	statement.execute(-1, new air.Responder(function(result){
+		return true;
+	}, function(error){
+		air.trace(error.message);
+		access_token = null;
+		return null;
+	}));
+}
