@@ -4,3 +4,13 @@ function S4() {
 function guid() {
 	return (S4()+S4()+S4()+S4()+S4()).toUpperCase();
 }
+function htmlErrorHandler(event) { 
+	event.preventDefault(); 
+	var message = "exceptionValue:" + event.exceptionValue + "\n"; 
+	for (var i = 0; i < event.stackTrace.length; i++){ 
+    	message += "sourceURL:" + event.stackTrace[i].sourceURL +"\n"; 
+        message += "line:" + event.stackTrace[i].line +"\n"; 
+        message += "function:" + event.stackTrace[i].functionName + "\n"; 
+	} 
+    alert(message); 
+} 
