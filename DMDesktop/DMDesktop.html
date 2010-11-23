@@ -3,24 +3,60 @@
         <title>DM Desktop</title>
         <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
         <script type="text/javascript" src="lib/air/AIRSourceViewer.js"></script>
+		<script type="text/javascript" src="lib/air/AIRMenuBuilder.js"></script>
+		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
+		<script type="text/javascript" src="lib/scripts/utils.js"></script>
+		<script type="text/javascript" src="lib/scripts/db.js"></script>
         <script type="application/x-shockwave-flash" src="lib/air/applicationupdater.swf"></script>
         <script type="application/x-shockwave-flash" src="lib/air/applicationupdater_ui.swf"></script>
         <script type="text/javascript">
-			function S4() {
-				return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-			}
-			function guid() {
-				return (S4()+S4()+S4()+S4()+S4()).toUpperCase();
-			}
+        	var win = null;
+			var hash = guid();
+			var access_token;
+			
+			jQuery(document).ready(function(){
+				GetAccessToken();
+				air.trace(access_token);
+			});
+
+
 			function openW() {
-	window.open("https://api.dailymile.com/oauth/authorize?response_type=code&client_id=dk91QOkPgzChAP8oqBOB5gUKEk8afmDF7demeCtS&redirect_uri=http://importerama.veverka.net/callback.php?hash=" + guid());
+				air.trace(access_token);
+				var strWindowFeatures = "menubar=no,width=500,height=400,location=no,resizable=yes,scrollbars=yes,status=no"; 
+				var redirect_url = "https://api.dailymile.com/oauth/authorize?response_type=code&client_id=dk91QOkPgzChAP8oqBOB5gUKEk8afmDF7demeCtS&redirect_uri=http://importerama.veverka.net/callback.php?hash=" + hash;
+				win = window.open(redirect_url, 'dude', strWindowFeatures);
+				checkWin();
 			}
+			function checkWin(){
+				if (win != null) {
+					getAccessToken();
+				}
+			}
+			
+			function getAccessToken(){
+				air.Introspector.Console.log(win.status);
+				var access_url = "http://importerama.veverka.net/hasher.php?hash=" + hash;
+				$.getJSON(access_url, function(json){
+					air.Introspector.Console.log(json);
+					if (json.hash == null) {
+						//setTimeout(function(){
+						//	getAccessToken()
+						//}, 1000);
+					}
+					else {
+						air.trace(json.hash);
+					}
+				});
+			}
+			
+
         </script>
     </head>
     <body>
-    	<div id="done">Test</div>
+    	<div id="donediv">Test</div>
 		<br />
 		<button onclick="openW()">button</button>
+		<button onclick="checkWin()">CHECKWIN</button>
     </body>
 </html>
