@@ -7,9 +7,21 @@ Entry Ñ view an entry
 function GetPersonDetails(username, details) {
 	//http://api.dailymile.com/people/username.json
 	$.getJSON('http://api.dailymile.com/people/' + username + '.json', function(data) {
-		details.location = data.location;
 		return data.location;
 	});
+}
+
+function GetLoggedInUser() {
+	$.ajax({
+  		url: 'http://api.dailymile.com/people/me.json?oauth_code=' + access_token,
+  		success: function(data) {
+    		alert('Load was performed.');
+	  	},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			air.Introspector.Console.log(errorThrown);
+			air.Introspector.Console.log(textStatus);
+		}
+		});
 }
 /*
 Read Streams

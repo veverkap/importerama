@@ -8,7 +8,7 @@
 
 			// Reads the content of the application descriptor file
             function setAccessToken(val) {
-				alert('ui setting ' + val);
+				//alert('ui setting ' + val);
                 access_token = val;
             }
 		    function reloader() {
@@ -19,7 +19,7 @@
 			// by writing to window.childSandboxBridge. Note that the sandbox
 			// bridge exposes the function as "callMe".
 		    jQuery(window).load(function(){
-				alert('loaded ui');
+				//alert('loaded ui');
 		        window.childSandboxBridge = {'reloader': reloader, 'setAccessToken' : setAccessToken};
 				//alert(parentSandboxBridge.getAccessToken());
 		    });

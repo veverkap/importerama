@@ -32,7 +32,7 @@ function GetAccessToken() {
 }
 
 function SetAccessToken(token) {
-	air.Introspector.Console.log(connection);
+	//air.Introspector.Console.log(connection);
 	if (!connection.connected) {
 		connection.open(dbFile);
 	}

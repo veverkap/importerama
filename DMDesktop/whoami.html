@@ -1,14 +1,37 @@
 <html>
 	<head>
-		<link href="http://www.dailymile.com/stylesheets/screen.css" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<style type="text/css">
+			.home_background {
+				background-image: url("icons/home_repeat_css_sprite.png");
+				background-repeat: repeat-x;
+			}
+			h2 {
+				color: #ccc; 
+				font-family: arial;
+  				position: relative;
+  				left: 8px;
+  				top: 8px;
+  				font-weight: bold;
+			}
+			span.text {
+  				position: absolute;
+  				left: -2px;
+  				top: -2px;
+  				color: #fff;
+			}
+		</style>
+				
+        <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
+		<script type="text/javascript" src="lib/scripts/dailymile.js"></script>
 		<script type="text/javascript">
 			var access_token;
 
 			// Reads the content of the application descriptor file
             function setAccessToken(val) {
                 access_token = val;
+				
             }
 
 		    jQuery(window).load(function(){
@@ -16,14 +39,16 @@
 		    });
 		</script>
 	</head>
-	<body>
-		<div id="hd">
-        	<div id="header_main">
-  			<a id="header_logo" class="left" href="/#ref=logo">
-    		dailymile.com
-  			</a>
-			</div>
-			</div>
-
+	<body class="home_background">
+		<table width="98%">
+			<tr>
+				<td align="left">
+					<h2>DM Desktop<span class="text">DM Desktop</span></h2>
+				</td>
+				<td align="right">
+					Logged in as <span id="logged_in_user"></span>
+				</td>
+			</tr>
+		</table>
 	</body>
 </html>
