@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<link href="sample.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript">
+		    // A function implemented in the sandbox of this content, exposed to the parent frame
+			// in the doLoad() function.
+		    function forApplicationSandbox() {
+		        return "This is from the remote sandbox.";
+		    }
+
+			// Exposes the callMe() function to the parent frame's sandbox 
+			// by writing to window.childSandboxBridge. Note that the sandbox
+			// bridge exposes the function as "callMe".
+		    function doLoad() {
+		        window.childSandboxBridge = {'callMe': forApplicationSandbox};
+		    }
+		</script>
+	</head>
+	<body onload="doLoad()">
+	    <h3>Remote Sandbox Content</h3>
+	    
+	    <ul>
+	    	<li>Loaded from application resource directory into a remote
+	    		sandbox via an iframe with the following attributes:
+	    		
+	    		<br/><br/><code>src="http://localhost/ui.html"
+          		<br/>			 sandboxRoot="http://localhost/"
+           		<br/>			 documentRoot="app-resource:/"</code>
+            </li>
+            
+	        <li>Behaves like content in a network sandbox &mdash; can call <code>eval()</code> 
+	        	without restrictions, can load remote JavaScript files, etc:
+				
+				<br/> <input type="button" 
+						onclick='eval("alert(44)")' 
+						value='eval("alert(44)")'/>
+			</li>
+
+	        <li>Does <em>not</em> have access to AIR APIs &mdash; the following throws an exception:
+           		<br/> <input type="button" 
+					onclick="try {window.runtime.flash.desktop.NativeApplication.nativeApplication.exit()} catch (e) {alert(e)}" 
+            				value="window.runtime.flash.system.NativeApplication.nativeApplication.exit()"/></li>
+
+	        <li>Can call functions from the application sandbox exposed by the developer 
+	        	via the sandbox bridge:
+	        
+	            <br/> <input type="button" onclick="alert(parentSandboxBridge.readApplicationDescriptorFile())" 
+	            	value="Call the exposed function for reading application.xml"/>
+	        </li>
+
+	        <li>Can expose functions to the application sandbox via the sandbox bridge.</li>
+	    </ul>
+	
+	</body>
+</html>

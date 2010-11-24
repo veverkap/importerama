@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<link href="http://www.dailymile.com/stylesheets/screen.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
+		<script type="text/javascript">
+			var access_token;
+
+			// Reads the content of the application descriptor file
+            function setAccessToken(val) {
+                access_token = val;
+            }
+
+		    jQuery(window).load(function(){
+		        window.childSandboxBridge = { 'setAccessToken' : setAccessToken};
+		    });
+		</script>
+	</head>
+	<body>
+		<div id="hd">
+        	<div id="header_main">
+  			<a id="header_logo" class="left" href="/#ref=logo">
+    		dailymile.com
+  			</a>
+			</div>
+			</div>
+
+	</body>
+</html>

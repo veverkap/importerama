@@ -5,10 +5,10 @@ function GetAccessToken() {
 	//air.Introspector.Console.log(dbFile);
 	
 	//In production, uncomment the if block to maintain the database.  
-	//if (!dbFile.exists) {  
+	if (!dbFile.exists) {  
  		var dbTemplate = air.File.applicationDirectory.resolvePath("DMDesktop_base.db");  
  		dbTemplate.copyTo(dbFile, true);    
-	//}
+	}
 	
 	connection.open(dbFile);
 	
@@ -18,14 +18,14 @@ function GetAccessToken() {
 	statement.execute(-1, new air.Responder(function(result){
 		if ((result.data != null) && (result.data.length > 0)) {
 			access_token = result.data[0].access_token;
-			air.trace(access_token);
+			//air.trace(access_token);
 			return result.data[0].access_token;
 		} else {
 			access_token = null;
 			return null;
 		}
 	}, function(error){
-		air.trace(error.message);
+		//air.trace(error.message);
 		access_token = null;
 		return null;
 	}));

@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
 		<script type="text/javascript" src="lib/scripts/utils.js"></script>
 		<script type="text/javascript" src="lib/scripts/db.js"></script>
+		<script type="text/javascript" src="lib/scripts/dailymile.js"></script>
         <script type="application/x-shockwave-flash" src="lib/air/applicationupdater.swf"></script>
         <script type="application/x-shockwave-flash" src="lib/air/applicationupdater_ui.swf"></script>
         <script type="text/javascript">
@@ -38,7 +39,7 @@
 				if (access_token == null) {
 					doFrameLoad();
 				} else {
-					air.trace(access_token);
+					location.href="root.html";
 				}
 			});
         </script>
