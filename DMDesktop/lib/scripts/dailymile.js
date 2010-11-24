@@ -4,24 +4,20 @@ Person Ñ a person identified by username
 Friends Ñ the friendships of a person
 Entry Ñ view an entry
 */
-function GetPersonDetails(username, details) {
+function GetPersonDetails(username) {
 	//http://api.dailymile.com/people/username.json
 	$.getJSON('http://api.dailymile.com/people/' + username + '.json', function(data) {
-		return data.location;
+		alert(data.location);
 	});
 }
 
-function GetLoggedInUser() {
-	$.ajax({
-  		url: 'http://api.dailymile.com/people/me.json?oauth_code=' + access_token,
-  		success: function(data) {
-    		alert('Load was performed.');
-	  	},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			air.Introspector.Console.log(errorThrown);
-			air.Introspector.Console.log(textStatus);
-		}
-		});
+function WhoAmI() {
+	$.getJSON('https://api.dailymile.com/people/me.json?oauth_token=' + access_token, function(data) {
+		//alert(data.username);
+		$("#logged_in_user").html(data.username);
+		$("#logged_in_user_icon").attr('src', data.photo_url);
+		alert(data.photo_url);
+	});		
 }
 /*
 Read Streams

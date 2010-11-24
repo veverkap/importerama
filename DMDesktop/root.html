@@ -43,33 +43,11 @@
 				window.setAccessTokenHeader = document.getElementById('header').contentWindow.childSandboxBridge.setAccessToken;
 				setAccessToken(access_token);
 				setAccessTokenHeader(access_token);
-				test();
+				
 				//air.trace(access_token);
             }
 			
-			function test() {
-				var url = 'http://importerama.veverka.net/people.json';
-					$.ajax({
-						type: 'GET',
-						cache: false,
-						dataType: 'json',
-						data: 'oauth_code=' + access_token,
-  						url: url,
-						complete: function (XMLHttpRequest, textStatus){
-							air.Introspector.Console.log(textStatus);
-							air.Introspector.Console.log(XMLHttpRequest);
-						},
-  						success: function(data) {
-							air.Introspector.Console.log(data);
-    						alert('Load was performed.');
-	  					},
-						error: function(XMLHttpRequest, textStatus, errorThrown) {
-							air.Introspector.Console.log(errorThrown);
-							air.Introspector.Console.log(textStatus);
-							air.Introspector.Console.log(XMLHttpRequest);
-						}
-					});
-			}
+			
             
        </script>
 	</head>
@@ -83,7 +61,7 @@
 		   width="100%"
 		   height="50px"
 		   scrolling="no"
-		   allowcrossDomainxhr="true"
+		   allowCrossDomainXHR="allowCrossDomainXHR"
 		   style="border: 0px solid #000;">
 		 </iframe>
         <iframe id="UI"
@@ -92,7 +70,7 @@
             documentRoot="app:/"
             width="200px" 
             height="100%"
-			allowcrossDomainxhr="true"
+			allowCrossDomainXHR="allowCrossDomainXHR"
             style="border: 1px solid #000;">
         </iframe>
     </body>

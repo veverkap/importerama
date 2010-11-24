@@ -22,7 +22,6 @@
 		</style>
 				
         <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
-		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
 		<script type="text/javascript" src="lib/scripts/dailymile.js"></script>
 		<script type="text/javascript">
@@ -31,11 +30,12 @@
 			// Reads the content of the application descriptor file
             function setAccessToken(val) {
                 access_token = val;
-				
+				WhoAmI();
             }
 
 		    jQuery(window).load(function(){
 		        window.childSandboxBridge = { 'setAccessToken' : setAccessToken};
+				
 		    });
 		</script>
 	</head>
@@ -45,8 +45,8 @@
 				<td align="left">
 					<h2>DM Desktop<span class="text">DM Desktop</span></h2>
 				</td>
-				<td align="right">
-					Logged in as <span id="logged_in_user"></span>
+				<td align="right" valign="middle" style="color: #fff;">
+				    <img id="logged_in_user_icon" src="icons/user_preview.jpg" height='40' /> Logged in as <span id="logged_in_user"></span>
 				</td>
 			</tr>
 		</table>
