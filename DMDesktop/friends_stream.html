@@ -1,28 +1,58 @@
 <html>
 	<head>
-		<link href="http://www.dailymile.com/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
-		<style type="text/css">
-			ol li {
-				list-style-type: decimal;
-				list-style-image: none;
-				list-style-position: outside;
-			}
-			ol, ul, ul li, ol li, dl {
-				list-style-position: outside;
-				list-style-type: none;
-				padding-left: 0pt;
-				margin-top: 0pt;
-				margin-right: 0pt;
-				margin-bottom: 0pt;
-				margin-left: 0pt;
-			}
-			.preview_text {
-				text-align: left;
-			}
-			.msg_type {
-				font-weight: bold;
-			}
-		</style>
+<style type="text/css">
+		a {
+			color: #04a2d8;
+			text-decoration: none;
+		}
+		body {
+			color: #535a5c;
+			font-family: arial;
+			font-size: 12px;
+		}
+		td {
+			font-size: 12px;
+		}
+		.username {
+			font-weight: lighter;
+			font-size: 80%;
+			color: #04a2d8;
+		}
+		img {
+			border: 0px;
+		}
+		ol li {
+			list-style-type: decimal;
+			list-style-image: none;
+			list-style-position: outside;
+		}
+		ol, ul, ul li, ol li, dl {
+			list-style-position: outside;
+			list-style-type: none;
+			padding-left: 0pt;
+			margin-top: 0pt;
+			margin-right: 0pt;
+			margin-bottom: 0pt;
+			margin-left: 0pt;
+		}
+		.msg {
+			font-family: Tahoma;
+			font-size: 13px;
+		}
+		.preview_text {
+			text-align: left;
+		}
+		.msg_title, .workout_specs {
+			font-weight: bold;
+			color: #474d4f;
+		}
+		.details {
+			font-weight: lighter;
+		}
+		.user_url {
+			color: #d2d2d2;
+		}	
+		</style>				
 		<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
 		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
@@ -62,14 +92,20 @@
 						<a class="user_url" href="#"><img class="avatar" src="#" /><br /><span class="username"></span></a>
 					</td>
 					<td>
-						<span class="msg_type"></span>
+						<span class="msg_title"></span><span class="workout_specs"></span>
 					</td>
 				</tr>
 				<tr>
 					<td style="border-bottom: 1px solid #d2d2d2;" valign="top">
 						<span class="msg"></span>
 						<br />
-						<span class="datetime"></span>
+						<br />
+						<div class="details">
+							<span class="datetime"></span>
+							<span class="workout_type"></span>
+						</div>
+						<br />
+						
 					</td>
 				</tr>
 			</table>

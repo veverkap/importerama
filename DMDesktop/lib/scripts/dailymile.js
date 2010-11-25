@@ -23,13 +23,31 @@ function YouAndFriends() {
 		$('#demo-contact').items(data.entries).chain(
 				/* Custom data binding */
 				{
+					'.workout_specs': {
+						content: function(d,el) {
+							if (d.workout != null) {
+								return " - ";
+							} else {
+								return "";
+							}
+						}
+					},
+					'.workout_type': {
+						content: function(d,el) {
+							if (d.workout != null) {
+								return " - " + d.workout.activity_type.toLowerCase() + " workout";
+							} else {
+								return "";
+							}
+						}
+					},
 					'.msg': {
 						style: 'text-align: left',
 						content: function(d, el){
 							return d.message;
 						}
 					},
-					'.msg_type': {
+					'.msg_title': {
 						content: function(d,el) {
 							if (d.workout != null) {
 								return d.workout.title;
@@ -49,17 +67,23 @@ function YouAndFriends() {
 					},
 					'.datetime': {
 						content: function(d,el) {
-							//parse date string 2010-11-23T21:18:18Z
-							var createdat = new Date(d.created_at.toString());
-							air.Introspector.Console.log(createdat);
-							air.Introspector.Console.log(d.created_at);
 							var today = new Date();
-							air.Introspector.Console.log(today);
+							var x = d.created_at.toString();
+							var yearx = x.substring(0,4);
+							var monthx = parseInt(x.substring(5,7));
+							monthx = monthx-1;
+							var dayx = x.substring(8,10);
+							var hourx = parseInt(x.substring(11,13));
+							var minutex = x.substring(14,16);
+							var secondx = x.substring(17,19);
+							var gmtHours = -today.getTimezoneOffset()/60;
+							hourx = hourx + gmtHours;
+							var createdat = new Date(yearx, monthx, dayx, hourx, minutex, secondx, 0);
 							var seconds = Math.ceil((createdat.getTime()-today.getTime()) / 1000) * -1;
 							var minutes = Math.ceil(seconds / 60);
 							var hours = Math.ceil(minutes / 60);
 							var days = Math.ceil(hours / 24);
-							var output = "a";
+							var output = "";
 							if (days > 1) {
 								output = days + " days ago";
 							}
@@ -69,7 +93,6 @@ function YouAndFriends() {
 							if (minutes <= 60) {
 								output = minutes + " minutes ago";
 							}
-							air.Introspector.Console.log(output);
 							return output;
 						}
 					}
