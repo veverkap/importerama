@@ -5,7 +5,7 @@ function GetAccessToken() {
 	var sql = "SELECT access_token FROM credentials LIMIT 1";
 	
 	//In production, uncomment the if block to maintain the database.  
-	if (!dbFile.exists) {  
+    if (!dbFile.exists) {  
  		var dbTemplate = air.File.applicationDirectory.resolvePath("DMDesktop_base.db");  
  		dbTemplate.copyTo(dbFile, true);    
 	}

@@ -35,20 +35,16 @@
 			function doLoad() {
 				GetAccessToken();
                 // Place the Exposed object on the parentSandboxBridge property of the ui frame's window object.
-                var frame = document.getElementById('UI').contentWindow.parentSandboxBridge = Exposed;
+                var frame = document.getElementById('friends_stream').contentWindow.parentSandboxBridge = Exposed;
 				                // Get the functions exposed from the ui frame's sandbox.
-                window.reloader = document.getElementById('UI').contentWindow.childSandboxBridge.reloader;
+                window.reloader = document.getElementById('friends_stream').contentWindow.childSandboxBridge.reloader;
 				
-				window.setAccessToken = document.getElementById('UI').contentWindow.childSandboxBridge.setAccessToken;
+				window.setAccessToken = document.getElementById('friends_stream').contentWindow.childSandboxBridge.setAccessToken;
 				window.setAccessTokenHeader = document.getElementById('header').contentWindow.childSandboxBridge.setAccessToken;
 				setAccessToken(access_token);
 				setAccessTokenHeader(access_token);
-				
-				//air.trace(access_token);
+
             }
-			
-			
-            
        </script>
 	</head>
 
@@ -64,12 +60,12 @@
 		   allowCrossDomainXHR="allowCrossDomainXHR"
 		   style="border: 0px solid #000;">
 		 </iframe>
-        <iframe id="UI"
-            src="http://localhost/ui.html"
+        <iframe id="friends_stream"
+            src="http://localhost/friends_stream.html"
             sandboxRoot="http://localhost/"
             documentRoot="app:/"
-            width="200px" 
-            height="100%"
+            width="800px" 
+            height="95%"
 			allowCrossDomainXHR="allowCrossDomainXHR"
             style="border: 1px solid #000;">
         </iframe>
