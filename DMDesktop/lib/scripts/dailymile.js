@@ -18,6 +18,37 @@ function WhoAmI() {
 	});		
 }
 
+function loadDate(dateString) {
+	var today = new Date();
+	var yearx = parseInt(dateString.substring(0,4));
+	var monthx = parseInt(dateString.substring(5,7)) - 1;
+	var dayx = parseInt(dateString.substring(8,10));
+	var gmtHours = -today.getTimezoneOffset()/60;
+	var hourx = parseInt(dateString.substring(11,13)) + gmtHours;
+	var minutex = parseInt(dateString.substring(14,16));
+	var secondx = parseInt(dateString.substring(17,19));
+	return new Date(yearx, monthx, dayx, hourx, minutex, secondx, 0);
+}
+
+function textDateString(dateObj) {
+	var today = new Date();
+	var seconds = Math.ceil((dateObj.getTime()-today.getTime()) / 1000) * -1;
+	var minutes = Math.ceil(seconds / 60);
+	var hours = Math.ceil(minutes / 60);
+	var days = Math.ceil(hours / 24);
+	var output = "";
+	if (days > 1) {
+		output = days + " days ago";
+	}
+	if (hours <= 24) {
+		output = hours + " hours ago";
+	}
+	if (minutes <= 60) {
+		output = minutes + " minutes ago";
+	}
+	return output;
+}
+
 function YouAndFriends() {
 	$.getJSON('http://importerama.veverka.net/friends.json', function(data) {
 		$('#demo-contact').items(data.entries).chain(

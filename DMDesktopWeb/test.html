@@ -1,0 +1,226 @@
+<html>
+	<head>
+		<style type="text/css">
+		a {
+			color: #04a2d8;
+			text-decoration: none;
+		}
+		body {
+			color: #535a5c;
+			font-family: arial;
+			font-size: 12px;
+		}
+		td {
+			font-size: 12px;
+		}
+		.username {
+			font-weight: lighter;
+			font-size: 80%;
+			color: #04a2d8;
+		}
+		img {
+			border: 0px;
+		}
+		ol li {
+			list-style-type: decimal;
+			list-style-image: none;
+			list-style-position: outside;
+		}
+		ol, ul, ul li, ol li, dl {
+			list-style-position: outside;
+			list-style-type: none;
+			padding-left: 0pt;
+			margin-top: 0pt;
+			margin-right: 0pt;
+			margin-bottom: 0pt;
+			margin-left: 0pt;
+		}
+		.message {
+			color: #fff;
+			font-family: Tahoma;
+			font-size: 12px;
+		}
+		.preview_text {
+			text-align: left;
+		}
+		.msg_title, .workout_specs {
+			font-weight: bold;
+			color: #474d4f;
+		}
+		.details {
+			font-weight: lighter;
+		}
+		.user_url {
+			color: #d2d2d2;
+		}	
+		</style>
+		<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="chain.js"></script>
+		<script type="text/javascript">
+			function loadDate(dateString) {
+				var today = new Date();
+				var yearx = parseInt(dateString.substring(0,4));
+				var monthx = parseInt(dateString.substring(5,7)) - 1;
+				var dayx = parseInt(dateString.substring(8,10));
+				var gmtHours = -today.getTimezoneOffset()/60;
+				var hourx = parseInt(dateString.substring(11,13)) + gmtHours;
+				var minutex = parseInt(dateString.substring(14,16));
+				var secondx = parseInt(dateString.substring(17,19));
+				return new Date(yearx, monthx, dayx, hourx, minutex, secondx, 0);
+			}
+			
+			function textDateString(dateObj) {
+				var today = new Date();
+				var seconds = Math.ceil((dateObj.getTime()-today.getTime()) / 1000) * -1;
+				var minutes = Math.ceil(seconds / 60);
+				var hours = Math.ceil(minutes / 60);
+				var days = Math.ceil(hours / 24);
+				var output = "";
+				if (days > 1) {
+					output = days + " days ago";
+				}
+				if (hours <= 24) {
+					output = hours + " hours ago";
+				}
+				if (minutes <= 60) {
+					output = minutes + " minutes ago";
+				}
+				return output;
+			}
+			
+			function workoutDetails(d) {
+				if (d.workout != null) {
+					var output = " - ";
+					if (d.workout.distance != null) {
+						output += " " + d.workout.distance.value + " " + d.workout.distance.units;
+					}
+					if (d.workout.duration != null) {
+						output += " / " + Math.floor(d.workout.duration/60) + " minutes";
+					}
+					if (d.workout.felt != null) {
+						output += " / felt " + d.workout.felt;
+					}
+					return output;
+				} else {
+					return "";
+				}
+			}
+			
+			function YouAndFriends() {
+				$.getJSON('http://localhost/~patrickveverka/friends.json', function(data) {
+					$('#demo-contact').items(data.entries).chain(
+							/* Custom data binding */
+							{
+								'.commentsdiv': {
+									style: 'display: none;',
+									id: function(d,el) {
+										return 'comments_' + d.id;
+									}
+								},
+								'.view_comments': {
+									style: function(d,el) {
+										if (d.comments.length == 0) {
+											return "display: none;";
+										}
+									},
+									content: function(d,el) {
+										return " View Comments (" + d.comments.length + ") - ";
+									},
+									onclick: function(d,el) {
+										return "$('#comments_" + d.id + "').show();";
+									}
+								},
+								'.workout_specs': {
+									content: function(d,el) {
+										return workoutDetails(d);
+									}
+								},
+								'.workout_type': {
+									content: function(d,el) {
+										if (d.workout != null) {
+											return " - " + d.workout.activity_type.toLowerCase() + " workout";
+										} else {
+											return "";
+										}
+									}
+								},
+								'.msg': {
+									style: 'text-align: left',
+									content: function(d, el){
+										return d.message;
+									}
+								},
+								'.msg_title': {
+									content: function(d,el) {
+										if (d.workout != null) {
+											return d.workout.title;
+										} else {
+											return "";
+										}
+									}
+								},
+								'.username': {
+									content: '{user.display_name}'
+								},
+								'.avatar': {
+									src: '{user.photo_url}'
+								},
+								'.user_url': {
+									href: '{user.url}'
+								},
+								'.datetime': {
+									content: function(d,el) {
+										var dateObj = loadDate(d.created_at.toString());
+										return textDateString(dateObj);
+									}
+								}
+
+							}
+						);
+				});
+				$("#demo-contact").show();		
+			}
+			$(document).ready(function() {
+				YouAndFriends();
+			});
+		</script>
+	</head>
+	<body>
+<table id="demo-contact" style="display: none;" width="100%">
+	<tr id="item">
+		<td>
+			<table border="0" width="100%">
+
+				<tr>
+					<td rowspan="2" width="70px" align="center" style="border-bottom: 1px solid #d2d2d2;">
+						<a class="user_url" href="#"><img class="avatar" src="#" /><br /><span class="username"></span></a>
+					</td>
+					<td>
+						<span class="msg_title"></span><span class="workout_specs"></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom: 1px solid #d2d2d2;" valign="top">
+						<span class="msg"></span>
+						<br />
+						<br />
+						<div class="details">
+							<span class="datetime"></span>
+							<span class="workout_type"></span>
+						</div>
+						<br />
+						<div class="comments">
+							<a class="view_comments" href="#">View Comments</a>
+
+							<span class="add_comment">Add Comment</span>
+							<div class="commentsdiv">Comments</div>
+							</div>
+						
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+	</body>
+</html>
