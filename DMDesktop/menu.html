@@ -1,0 +1,89 @@
+<html>
+	<head><style type="text/css">
+		a {
+			color: #04a2d8;
+			text-decoration: none;
+		}
+		body {
+			color: #535a5c;
+			font-family: arial;
+			font-size: 12px;
+		}
+		td {
+			font-size: 12px;
+		}
+		.username {
+			font-weight: lighter;
+			font-size: 80%;
+			color: #04a2d8;
+		}
+		img {
+			border: 0px;
+		}
+		ol li {
+			list-style-type: decimal;
+			list-style-image: none;
+			list-style-position: outside;
+		}
+		ol, ul, ul li, ol li, dl {
+			list-style-position: outside;
+			list-style-type: none;
+			padding-left: 0pt;
+			margin-top: 0pt;
+			margin-right: 0pt;
+			margin-bottom: 0pt;
+			margin-left: 0pt;
+		}
+		.message {
+			color: #fff;
+			font-family: Tahoma;
+			font-size: 12px;
+		}
+		.preview_text {
+			text-align: left;
+		}
+		.msg_title, .workout_specs {
+			font-weight: bold;
+			color: #474d4f;
+		}
+		.details {
+			font-weight: lighter;
+		}
+		.user_url {
+			color: #d2d2d2;
+		}	
+		</style>			
+		<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
+		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
+		<script type="text/javascript">
+			var access_token;
+
+			// Reads the content of the application descriptor file
+            function setAccessToken(val) {
+                access_token = val;
+				
+				reloader();
+            }
+			
+		    function reloader() {
+		    }
+			
+			function redirectUrl(url) {
+				parentSandboxBridge.newRedirect('friends_stream', url);
+			}
+
+			// Exposes the callMe() function to the parent frame's sandbox 
+			// by writing to window.childSandboxBridge. Note that the sandbox
+			// bridge exposes the function as "callMe".
+		    jQuery(window).load(function(){
+				//alert('loaded ui');
+		        window.childSandboxBridge = {'reloader': reloader, 'setAccessToken' : setAccessToken};
+				
+		    });
+		</script>
+	</head>
+	<body>
+<a href="#" onclick="redirectUrl('http://patrick.veverka.net');">Click</a>
+	</body>
+</html>

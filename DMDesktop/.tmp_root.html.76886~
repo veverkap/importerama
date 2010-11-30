@@ -28,31 +28,21 @@
                 air.trace(str);
             }
             
-			function newRedirect(frame_id, url) {
-				alert('redirect');
-				document.getElementById(frame_id).src = url;
-			}
             // Expose a function that reads the application descriptor file.
             Exposed.getAccessToken = getAccessToken;
-			Exposed.newRedirect = newRedirect;
             
 			// Called from the onload event of the body element.
 			function doLoad() {
 				GetAccessToken();
                 // Place the Exposed object on the parentSandboxBridge property of the ui frame's window object.
-                document.getElementById('friends_stream').contentWindow.parentSandboxBridge = Exposed;
-                document.getElementById('header').contentWindow.parentSandboxBridge = Exposed;
-				document.getElementById('menu').contentWindow.parentSandboxBridge = Exposed;
+                var frame = document.getElementById('friends_stream').contentWindow.parentSandboxBridge = Exposed;
 				                // Get the functions exposed from the ui frame's sandbox.
                 window.reloader = document.getElementById('friends_stream').contentWindow.childSandboxBridge.reloader;
 				
 				window.setAccessToken = document.getElementById('friends_stream').contentWindow.childSandboxBridge.setAccessToken;
 				window.setAccessTokenHeader = document.getElementById('header').contentWindow.childSandboxBridge.setAccessToken;
-				
-				window.setAccessTokenMenu = document.getElementById('menu').contentWindow.childSandboxBridge.setAccessToken;
 				setAccessToken(access_token);
 				setAccessTokenHeader(access_token);
-				setAccessTokenMenu(access_token);
 
             }
        </script>
@@ -74,18 +64,10 @@
             src="http://localhost/friends_stream.html"
             sandboxRoot="http://localhost/"
             documentRoot="app:/"
-            width="80%" 
-            height="92%"
+            width="800px" 
+            height="95%"
 			allowCrossDomainXHR="allowCrossDomainXHR"
-            style="border: 0px solid #000;">
+            style="border: 1px solid #000;">
         </iframe>
-		<iframe id="menu"
-			src="http://localhost/menu.html"
-			sandboxRoot="http://localhost"
-			documentRoot="app:/"
-			width="19%"
-			height="92%"
-			allowCrossDomainXHR="allowCrossDomainXHR"
-            style="border: 0px solid #000;">
     </body>
 </html>
