@@ -1,5 +1,6 @@
 <html>
-	<head><style type="text/css">
+	<head>
+<style type="text/css">
 		a {
 			color: #04a2d8;
 			text-decoration: none;
@@ -34,10 +35,9 @@
 			margin-bottom: 0pt;
 			margin-left: 0pt;
 		}
-		.message {
-			color: #fff;
+		.msg {
 			font-family: Tahoma;
-			font-size: 12px;
+			font-size: 13px;
 		}
 		.preview_text {
 			text-align: left;
@@ -52,7 +52,7 @@
 		.user_url {
 			color: #d2d2d2;
 		}	
-		</style>			
+		</style>				
 		<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
 		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
@@ -82,7 +82,7 @@
 		</script>
 	</head>
 	<body>
-<table id="demo-contact" style="display: none;" width="100%">
+<table id="demo-contact" style="display: none; border: 1px solid #000;" width="100%">
 	<tr id="item">
 		<td>
 			<table border="0" width="100%">
@@ -105,12 +105,6 @@
 							<span class="workout_type"></span>
 						</div>
 						<br />
-						<div class="comments">
-							<a class="view_comments" href="#">View Comments</a>
-
-							<span class="add_comment">Add Comment</span>
-							<div class="commentsdiv">Comments</div>
-							</div>
 						
 					</td>
 				</tr>
@@ -118,5 +112,7 @@
 		</td>
 	</tr>
 </table>
+
+		
 	</body>
 </html>

@@ -54,8 +54,8 @@
 			color: #d2d2d2;
 		}	
 		</style>
-		<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-		<script type="text/javascript" src="chain.js"></script>
+		<script type="text/javascript" src="./jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="./chain.js"></script>
 		<script type="text/javascript">
 			function loadDate(dateString) {
 				var today = new Date();
@@ -107,7 +107,7 @@
 			}
 			
 			function YouAndFriends() {
-				$.getJSON('http://localhost/~patrickveverka/friends.json', function(data) {
+				$.getJSON('./friends.json', function(data) {
 					$('#demo-contact').items(data.entries).chain(
 							/* Custom data binding */
 							{
