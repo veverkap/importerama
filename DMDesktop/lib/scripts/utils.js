@@ -14,3 +14,12 @@ function htmlErrorHandler(event) {
 	} 
     alert(message); 
 } 
+function CheckForUpdate() {
+	appUpdater.configurationFile = new air.File("app:/updateConfig.xml"); 
+	air.Introspector.Console.log(appUpdater);
+	appUpdater.addEventListener(air.UpdateEvent.INITIALIZED, onUpdateInit);
+	appUpdater.initialize();
+}
+function onUpdateInit() {
+	appUpdater.checkNow();
+}

@@ -7,14 +7,12 @@
 		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
 		<script type="text/javascript" src="lib/scripts/utils.js"></script>
-		<script type="text/javascript" src="lib/scripts/ui.js"></script>
 		<script type="text/javascript" src="lib/scripts/db.js"></script>
 		<script type="text/javascript" src="lib/scripts/dailymile.js"></script>
         <script type="application/x-shockwave-flash" src="lib/air/applicationupdater.swf"></script>
         <script type="application/x-shockwave-flash" src="lib/air/applicationupdater_ui.swf"></script>
         <script type="text/javascript">
 			var access_token;
-			var appUpdater = new runtime.air.update.ApplicationUpdater();
 
 			// Reads the content of the application descriptor file
             function setLocalVar(val) {
@@ -36,11 +34,9 @@
 				$("#dm_frame").show();
                 var frame = document.getElementById('dm_frame').contentWindow.parentSandboxBridge = Exposed;
             }
-
+			
 			jQuery(document).ready(function(){
-				CheckForUpdate();
 				GetAccessToken();
-				CreateMenus();
 				if (access_token == null) {
 					doFrameLoad();
 				} else {
@@ -58,6 +54,5 @@
             height="100%"
             style="border: 0px; width:100%; height:410px;display:none;">
         </iframe>
-		<div id="navTree"></div>
     </body>
 </html>
