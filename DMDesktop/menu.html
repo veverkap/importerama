@@ -64,7 +64,6 @@
 			// Reads the content of the application descriptor file
             function setAccessToken(val) {
                 access_token = val;
-				
 				reloader();
             }
 			
@@ -73,7 +72,7 @@
 			
 			
 			function popupRunnersWorld() {
-				window.open('runners_world_import.html', 'runners_world', 'width=700,height=700');
+				parentSandboxBridge.createNativeWindow("runners_world_import.html");
 			}
 			function redirectUrl(url) {
 				parentSandboxBridge.newRedirect('friends_stream', url);
@@ -89,9 +88,9 @@
 		</script>
 	</head>
 	<body>
-	<a href="#" onclick="popupRunnersWorld();">CNN</a>
 	<br />
-	<button id="window" onclick="popupRunnersWorld();">Load</button>
-	<button id="window2" onclick="createNativeWindow();">Load2</button>
+	<center>
+	<button id="window" onclick="popupRunnersWorld();">Parse Runners World XML File</button>
+	</center>
 	</body>
 </html>

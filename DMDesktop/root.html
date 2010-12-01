@@ -19,21 +19,16 @@
                 return access_token;
             }
 			
-			function createNativeWindow() { 
+			function createNativeWindow(url) { 
 				var options = new air.NativeWindowInitOptions(); 
     			options.transparent = false; 
     			options.systemChrome = air.NativeWindowSystemChrome.STANDARD; 
     			options.type = air.NativeWindowType.NORMAL; 
-     
-    			//create the window 
-    			var newWindow = new air.NativeWindow(options); 
-    newWindow.title = "A title"; 
-    newWindow.width = 600; 
-    newWindow.height = 400; 
-     
-    //activate and show the new window 
-    newWindow.activate(); 
-}
+    
+				var windowBounds = new air.Rectangle(100,100,800,600);
+				newHTMLLoader = air.HTMLLoader.createRootWindow(true, options, true, windowBounds);
+				newHTMLLoader.load(new air.URLRequest(url));
+			}
 
             // Create an object that will be used to expose AIR functionality.
             // to the browser sandbox
@@ -45,12 +40,12 @@
             }
             
 			function newRedirect(frame_id, url) {
-				alert('redirect');
 				document.getElementById(frame_id).src = url;
 			}
             // Expose a function that reads the application descriptor file.
             Exposed.getAccessToken = getAccessToken;
 			Exposed.newRedirect = newRedirect;
+			Exposed.createNativeWindow = createNativeWindow;
             
 			// Called from the onload event of the body element.
 			function doLoad() {
