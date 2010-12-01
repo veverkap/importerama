@@ -18,6 +18,22 @@
             function getAccessToken() {
                 return access_token;
             }
+			
+			function createNativeWindow() { 
+				var options = new air.NativeWindowInitOptions(); 
+    			options.transparent = false; 
+    			options.systemChrome = air.NativeWindowSystemChrome.STANDARD; 
+    			options.type = air.NativeWindowType.NORMAL; 
+     
+    			//create the window 
+    			var newWindow = new air.NativeWindow(options); 
+    newWindow.title = "A title"; 
+    newWindow.width = 600; 
+    newWindow.height = 400; 
+     
+    //activate and show the new window 
+    newWindow.activate(); 
+}
 
             // Create an object that will be used to expose AIR functionality.
             // to the browser sandbox
@@ -53,13 +69,11 @@
 				setAccessToken(access_token);
 				setAccessTokenHeader(access_token);
 				setAccessTokenMenu(access_token);
-
             }
        </script>
 	</head>
 
     <body onload="doLoad();">
-
     	<iframe id="header"
 		   src="http://localhost/whoami.html"
 		   sandboxRoot="http://localhost/"
@@ -87,5 +101,6 @@
 			height="92%"
 			allowCrossDomainXHR="allowCrossDomainXHR"
             style="border: 0px solid #000;">
+			
     </body>
 </html>

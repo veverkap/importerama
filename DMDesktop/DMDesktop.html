@@ -36,8 +36,14 @@
 				$("#dm_frame").show();
                 var frame = document.getElementById('dm_frame').contentWindow.parentSandboxBridge = Exposed;
             }
+			
+			function doEventComplete(event) {
+    alert('done');
+}
 
 			jQuery(document).ready(function(){
+				        
+			
 				CheckForUpdate();
 				GetAccessToken();
 				CreateMenus();

@@ -71,10 +71,13 @@
 		    function reloader() {
 		    }
 			
+			
+			function popupRunnersWorld() {
+				window.open('runners_world_import.html', 'runners_world', 'width=700,height=700');
+			}
 			function redirectUrl(url) {
 				parentSandboxBridge.newRedirect('friends_stream', url);
 			}
-
 			// Exposes the callMe() function to the parent frame's sandbox 
 			// by writing to window.childSandboxBridge. Note that the sandbox
 			// bridge exposes the function as "callMe".
@@ -86,8 +89,9 @@
 		</script>
 	</head>
 	<body>
-	<a href="http://localhost/runners_world.html?id=dude" target="_blank">CNN</a>
+	<a href="#" onclick="popupRunnersWorld();">CNN</a>
 	<br />
-	<a href="CheckForUpdate();">check update</a>
+	<button id="window" onclick="popupRunnersWorld();">Load</button>
+	<button id="window2" onclick="createNativeWindow();">Load2</button>
 	</body>
 </html>
