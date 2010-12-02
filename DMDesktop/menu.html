@@ -25,6 +25,10 @@
 			function redirectUrl(url) {
 				parentSandboxBridge.newRedirect('friends_stream', url);
 			}
+			
+			function reloadStream() {
+				parentSandboxBridge.reloadStream();
+			}
 			// Exposes the callMe() function to the parent frame's sandbox 
 			// by writing to window.childSandboxBridge. Note that the sandbox
 			// bridge exposes the function as "callMe".
@@ -36,17 +40,11 @@
 		</script>
 	</head>
 	<body>
-	<br />
-	<center>
-	<button id="window" onclick="popupRunnersWorld();">Parse Runners World XML File</button>
-	</center>
 	<div class="outer">	
 	<div id="menu">
 		<ul>
+		<li><a href="#" onclick="reloadStream();">Refresh</a></li>
 		<li><a href="#" onclick="popupRunnersWorld();" target="_self">Parse RunnersWorld File</a></li>
-		<li><a href="tests.html" target="_self">Hmm</a></li>
-		
-		<li><a href="tests.html" target="_self">Hmm</a></li>
 	</ul>
 </div>
 </div>

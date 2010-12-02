@@ -16,6 +16,7 @@
             }
 			
 		    function reloader() {
+				$('#demo-contact').items('empty');
 		        YouAndFriends();
 		    }
 
@@ -30,6 +31,9 @@
 		</script>
 	</head>
 	<body>
+		<div align="right">
+			<button onclick="reloader();">Refresh</button>
+		</div>
 <table id="demo-contact" style="display: none;" width="100%">
 	<tr id="item">
 		<td>
