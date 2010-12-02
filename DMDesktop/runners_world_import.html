@@ -1,19 +1,27 @@
 <html>
 	<head>
 		<title>Runners World Import</title>
-
+		<link rel="stylesheet" href="lib/styles/style.css" media="all" type="text/css" />
 		<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		
 		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
 		<script type="text/javascript" src="lib/scripts/utils.js"></script>
 		<script type="text/javascript">
-			function dude() {
-				alert('dude');
+			function onChange() {
+				var val = $('#xmlFile').val();
+				if (val.length > 3) {
+					var extension = val.substring(val.length - 3);
+					if (extension != "xml") {
+						alert('Invalid file type.');
+						$('#xmlFile').val("");
+					}
+				}
 			}
 		</script>
 	</head>
 	<body>
 		Choose a file:
-		<input id="xmlFile" type="file" onchange="dude();"/>
+		<input id="xmlFile" type="file" onchange="onChange();"/>
 	</body>
 </html>

@@ -11,23 +11,23 @@ function GetAccessToken() {
 	}
 	
 	connection.open(dbFile);
-	air.trace("GetAccessToken - opened file");
+	//air.trace("GetAccessToken - opened file");
 	var statement = new air.SQLStatement();
 	statement.sqlConnection = connection;
 	statement.text = sql;
-	air.trace("GetAccessToken - SQL: " + sql);
+	//air.trace("GetAccessToken - SQL: " + sql);
 	statement.execute(-1, new air.Responder(function(result){
 		if ((result.data != null) && (result.data.length > 0)) {
 			access_token = result.data[0].access_token;
-			air.trace("GetAccessToken - Token: " + access_token);
+			//air.trace("GetAccessToken - Token: " + access_token);
 			return result.data[0].access_token;
 		} else {
-			air.trace("GetAccessToken - nothing found");
+			//air.trace("GetAccessToken - nothing found");
 			access_token = null;
 			return null;
 		}
 	}, function(error){
-		air.trace("GetAccessToken - Error: " + error.message);
+		//air.trace("GetAccessToken - Error: " + error.message);
 		access_token = null;
 		return null;
 	}));
@@ -35,19 +35,19 @@ function GetAccessToken() {
 
 function SetAccessToken(token) {
 	var sql = "INSERT INTO credentials (access_token) VALUES ('" + token + "')";
-	air.trace("SetAccessToken - Token: " + token);
+	//air.trace("SetAccessToken - Token: " + token);
 	if (!connection.connected) {
 		connection.open(dbFile);
 	}
-	air.trace("SetAccessToken - SQL: " + sql);
+	//air.trace("SetAccessToken - SQL: " + sql);
 	var statement = new air.SQLStatement();
 	statement.sqlConnection = connection;
 	statement.text = sql;
 	statement.execute(-1, new air.Responder(function(result){
-		air.trace("SetAccessToken - success");
+		//air.trace("SetAccessToken - success");
 		return true;
 	}, function(error){
-		air.trace("SetAccessToken - Error: " + error.message);
+		//air.trace("SetAccessToken - Error: " + error.message);
 		access_token = null;
 		return null;
 	}));

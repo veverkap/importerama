@@ -1,0 +1,70 @@
+body{
+	color: #535a5c;
+	font-size: 12px;
+	font-family: arial,helvetica,clean,sans-serif;
+}
+a {
+	color: #04a2d8;
+	text-decoration: none;
+}
+td {
+	font-size: 12px;
+}
+.username {
+	font-weight: lighter;
+	font-size: 80%;
+	color: #04a2d8;
+}
+img {
+	border: 0px;
+}
+ol li {
+	list-style-type: decimal;
+	list-style-image: none;
+	list-style-position: outside;
+}
+ol, ul, ul li, ol li, dl {
+	list-style-position: outside;
+	list-style-type: none;
+	padding-left: 0pt;
+	margin-top: 0pt;
+	margin-right: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 0pt;
+}
+.message {
+	color: #fff;
+	font-family: Tahoma;
+	font-size: 12px;
+}
+.preview_text {
+	text-align: left;
+}
+.msg_title, .workout_specs {
+	font-weight: bold;
+	color: #474d4f;
+}
+.details {
+	font-weight: lighter;
+}
+.user_url {
+	color: #d2d2d2;
+}	
+.home_background {
+	background-image: url("../../icons/home_repeat_css_sprite.png");
+	background-repeat: repeat-x;
+}
+h2 {
+	color: #ccc; 
+	font-family: arial;
+ 	position: relative;
+  	left: 8px;
+  	top: 8px;
+  	font-weight: bold;
+}
+span.text {
+  	position: absolute;
+  	left: -2px;
+  	top: -2px;
+  	color: #fff;
+}

@@ -16,7 +16,7 @@ function htmlErrorHandler(event) {
 } 
 function CheckForUpdate() {
 	appUpdater.configurationFile = new air.File("app:/updateConfig.xml"); 
-	air.Introspector.Console.log(appUpdater);
+	//air.trace(appUpdater);
 	appUpdater.addEventListener(air.UpdateEvent.INITIALIZED, onUpdateInit);
 	appUpdater.initialize();
 }

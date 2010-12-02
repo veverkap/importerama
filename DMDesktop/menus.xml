@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<root>
-	<menuitem label="File"> 
-		<menuitem label="New Page" onSelect="Menu_createPage" /> 
-		<menuitem label="Exit" onSelect="Menu_exit" /> 
-	</menuitem>
-</root>
