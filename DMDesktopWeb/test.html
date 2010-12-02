@@ -14,7 +14,6 @@
 			});
 			
 			function parseXml(data) {
-				//find every Tutorial and print the author
 				  $(data).find("EventCollection").children().each(function()
 				  {
 					var activityType = this.nodeName;
@@ -28,6 +27,11 @@
 					var distanceUnit = $(this).find("DistanceUnit").text();
 					var duration = $(this).find("Duration").text();
 					var notes = $(this).find("Notes").text();
+					var weather = $(this).find("Weather");
+					var weather_condition = weather.find("Condition").text();
+					var weather_temperature = weather.find("Temperature").text();
+					var weather_temperatureunit = weather.find("TemperatureUnit").text();
+					
 					/*
 					<Weight>122</Weight>
 					<WeightUnit>Pound</WeightUnit>
@@ -37,10 +41,11 @@
 					<DistanceUnit>Mile</DistanceUnit>
 					<Duration>30:00</Duration>
 					*/
-					console.log(notes);
+					
 				    
 				  });
-			}
+				  //"Run","Bike","Weights"
+		}
 		</script>
 	</head>
 	<body>
