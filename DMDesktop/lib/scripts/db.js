@@ -34,12 +34,17 @@ function GetAccessToken() {
 }
 
 function SetAccessToken(token) {
-	var sql = "INSERT INTO credentials (access_token) VALUES ('" + token + "')";
-	//air.trace("SetAccessToken - Token: " + token);
+	var sql = "";
+	if (token != null) {
+		var sql = "INSERT INTO credentials (access_token) VALUES ('" + token + "')";
+	} else {
+		var sql = "DELETE FROM credentials WHERE 1=1";
+	}
+		//air.trace("SetAccessToken - Token: " + token);
 	if (!connection.connected) {
 		connection.open(dbFile);
 	}
-	//air.trace("SetAccessToken - SQL: " + sql);
+	air.trace("SetAccessToken - SQL: " + sql);
 	var statement = new air.SQLStatement();
 	statement.sqlConnection = connection;
 	statement.text = sql;

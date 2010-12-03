@@ -14,6 +14,7 @@
         <script type="application/x-shockwave-flash" src="lib/air/applicationupdater_ui.swf"></script>
         <script type="text/javascript">
 			var access_token;
+			var token_checked = false;
 			var appUpdater = new runtime.air.update.ApplicationUpdater();
 
 			// Reads the content of the application descriptor file
@@ -33,23 +34,36 @@
             
 			// Called from the onload event of the body element.
 			function doFrameLoad() {
+				$("#ajax_loader").hide();
 				$("#dm_frame").show();
                 var frame = document.getElementById('dm_frame').contentWindow.parentSandboxBridge = Exposed;
             }
-			
+
 			jQuery(document).ready(function(){
 				CheckForUpdate();
 				GetAccessToken();
+				ValidateToken();
 				CreateMenus();
-				if (access_token == null) {
-					doFrameLoad();
-				} else {
-					location.href="root.html";
-				}
+				window.setTimeout(redirectAccessToken, 1000);
 			});
+			
+			function redirectAccessToken() {
+				if (token_checked) {
+					if (access_token == null) {
+						SetAccessToken(null);
+						doFrameLoad();
+					}
+					else {
+						location.href = "root.html";
+					}
+				} else {
+					window.setTimeout(redirectAccessToken, 1000);
+				}
+			}
         </script>
     </head>
     <body>
+    	<img src="icons/ajax_loader.gif" id="ajax_loader" />
         <iframe id="dm_frame"
             src="https://api.dailymile.com/oauth/authorize?response_type=code&client_id=dk91QOkPgzChAP8oqBOB5gUKEk8afmDF7demeCtS&redirect_uri=http://importerama.veverka.net/callback.php"
             sandboxRoot="http://importerama.veverka.net/"

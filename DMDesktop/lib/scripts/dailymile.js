@@ -7,7 +7,25 @@ Entry Ñ view an entry
 function GetPersonDetails(username) {
 	//http://api.dailymile.com/people/username.json
 	$.getJSON('http://api.dailymile.com/people/' + username + '.json', function(data) {
-		alert(data.location);
+		//alert(data.location);
+	});
+}
+
+function ValidateToken() {
+	var url = 'https://api.dailymile.com/people/me.json?oauth_token=' + access_token;
+	$.ajax({
+		url: url,
+		success: function(data) { 
+			token_checked = true;
+			return true; 
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			if (XMLHttpRequest.status == "406") {
+				access_token = null;
+				token_checked = true;
+				return false;
+			}
+		}
 	});
 }
 
@@ -176,6 +194,42 @@ Nearby Ñ a stream of entries nearby a location
 /*
 Publish Data
 Create Entry Ñ post a workout, note, or image
+
+POST https://api.dailymile.com/entries.json
+Parameters:
+message, string (optional)
+	text of the note to post or the "how did it go?" text to accompany a workout
+lat, float (optional)
+	the latitude of this entry, between -90 and 90
+lon, float (optional)
+	the longitude of this entry, between -180 and 180
+
+workout[activity_type], string (optional)
+	one of "running", "cycling", "swimming", "walking", or "fitness"
+workout[completed_at], datetime (optional)
+	when the workout was done, ex: 2010-12-25 12:15:00
+workout[distance][value], float (optional)
+	the distance indicated by units
+workout[distance][units], string (optional)
+	one of "miles", "kilometers", "yards", or "meters"; defaults depending on user's units preference and activity type
+workout[duration], integer (optional)
+	the number of seconds spent working out
+workout[felt], string (optional)
+	one of "great", "good", "alright", "blah", "tired" or "injured"
+workout[calories], integer (optional)
+	the number of calories burned during the workout
+workout[title], string (optional)
+	optional title for a workout
+
+media[type], string
+	image
+media[url], string
+	the URL to the photo
+*/
+function createEntry() {
+	
+}
+/*
 Delete Entry Ñ delete an entry
 Create Comment Ñ add a comment to an entry
 Create Like Ñ like an entry
