@@ -7,6 +7,7 @@
 		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
 		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
 		<script type="text/javascript" src="lib/scripts/utils.js"></script>
+		<script type="text/javascript" src="lib/scripts/dailymile.js"></script>
 		
 		<script type="text/javascript" src="lib/scripts/chain.js"></script>
 		<script type="text/javascript">
@@ -14,6 +15,7 @@
 			var items = new Array();
 			function completed(event)
 			{ 
+				$("#ajax_loader").show();
 				var str = myFileStream.readMultiByte(myFileStream.bytesAvailable, "iso-8859-1");
 				parseXml(str);
 			} 
@@ -26,6 +28,7 @@
 						$('#xmlFile').val("");
 					} else {
 						//read file
+						$("#ajax_loader").show();
 						var myFile = new air.File(); 
 						myFile = myFile.resolvePath(val);
 						myFileStream.addEventListener(air.Event.COMPLETE, completed);
@@ -49,7 +52,7 @@
 						weightUnit : $(this).find("WeightUnit").text(),
 						courseName : $(this).find("CourseName").text(),
 						distance : $(this).find("Distance").text(),
-						distanceUnit : $(this).find("DistanceUnit").text(),
+						distanceUnit : parseDistanceUnits($(this).find("DistanceUnit").text()),
 						duration : $(this).find("Duration").text(),
 						notes : $(this).find("Notes").text(),
 						weather_condition : weather.find("Condition").text(),
@@ -61,28 +64,24 @@
 						items[items.length] = item;
 					}
 				});
-				  //"Run","Bike","Weights"
-				  $('#parsed').items(items).chain(
-				/* Custom data binding */
+				//"Run","Bike","Weights"
+				$('#parsed').items(items).chain(
 				{
 					'.completed_at': {
-						id: function(d,el) {
-							return 'comments_' + d.id;
-						},
 						content: function(d,el) {
-							return "DUDE";
+							return d.date + " " + d.time;
+						}
+					},
+					'.distance': {
+						content: function(d,el) {
+							return d.distance + " " + d.distanceUnit;
 						}
 					}
 				});
+				$("#ajax_loader").hide();
+				//$("#rounded-corner").show();
 			}
 			
-			function parseActivityType(name) {
-				name = name.toLowerCase();
-				if (name == "run") { return "running"; }
-				if (name == "bike") { return "cycling"; }
-				if (name == "weights") { return "fitness"; }
-				return "none";
-			}
 		</script>
 	</head>
 	<body>
@@ -90,30 +89,32 @@
 		<input id="xmlFile" type="file" style="border: 1px solid #d2d2d2;"/><br />
 		<button id="parseBtn" onclick="readFile();">Parse File</button>
 		<br />
-		<table id="parsed" width="100%">
-			<tr>
-				<th>activityType</th>
-				<th>title</th>
-				<th>completed_at</th>
-				<th>distance-value</th>
-				<th>distance-units</th>
-				<th>duration</th>
-			</tr>
+		<img src="icons/ajax_loader.gif" id="ajax_loader" style="display: none;" />
+		<table width="100%" id="rounded-corner">
+			<thead>
+				<tr id="header">
+					<th scope="col" class="toplefter" width="75">Type</th>
+					<th>Notes</th>
+					<th width="200">Date</th>
+					<th>Distance</th>
+					<th scope="col" class="toprighter">Duration</th>
+				</tr>
+			</thead>
+			<tfoot>
+	    		<tr>
+        			<td colspan="4" class="rounded-foot-left">&nbsp;</td>
+					<td class="rounded-foot-right">&nbsp;</td>
+        		</tr>
+			</tfoot>
+			<tbody id="parsed">
 			<tr id="item">
 				<td class="activityType"></td>
-				<td class="title"></td>
+				<td class="notes"></td>
 				<td class="completed_at"></td>
-				<td class="distance-value"></td>
-				<td class="distance-units"></td>
+				<td class="distance"></td>
 				<td class="duration"></td>
 			</tr>
+			</tbody>
 		</table>
-			2010-12-25 12:15:00
-			activity_type, completed_at, distance-value, distance-units, duration, title
-			activityType, date, time, type, distance, distanceUnitduration : $(this).find("Duration").text(),
-						notes : $(this).find("Notes").text(),
-						weather_condition : weather.find("Condition").text(),
-						weather_temperature : weather.find("Temperature").text(),
-						weather_temperatureunit 
 	</body>
 </html>

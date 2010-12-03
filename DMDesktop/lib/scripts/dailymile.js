@@ -18,6 +18,31 @@ function WhoAmI() {
 	});		
 }
 
+function parseActivityType(name) {
+	name = name.toLowerCase();
+	if (name == "run") { return "running"; }
+	if (name == "bike") { return "cycling"; }
+	if (name == "weights") { return "fitness"; }
+	return "none";
+}
+
+function parseDistanceUnits(name) {
+	name = name.toLowerCase();
+	if (name == "mile") {
+		return "miles";
+	}
+	if (name == "kilometer") {
+		return "kilometers";
+	}
+	if (name == "yard") {
+		return "yards";
+	}
+	if (name == "meter") {
+		return "meters";
+	}
+	return "none";
+}
+
 function loadDate(dateString) {
 	var today = new Date();
 	var yearx = parseInt(dateString.substring(0,4));
