@@ -62,7 +62,18 @@
 					}
 				});
 				  //"Run","Bike","Weights"
-				  $('#parsed').items(items).chain();
+				  $('#parsed').items(items).chain(
+				/* Custom data binding */
+				{
+					'.completed_at': {
+						id: function(d,el) {
+							return 'comments_' + d.id;
+						},
+						content: function(d,el) {
+							return "DUDE";
+						}
+					}
+				});
 			}
 			
 			function parseActivityType(name) {
@@ -81,7 +92,7 @@
 		<br />
 		<table id="parsed" width="100%">
 			<tr>
-				<th>activity_type</th>
+				<th>activityType</th>
 				<th>title</th>
 				<th>completed_at</th>
 				<th>distance-value</th>
@@ -89,7 +100,7 @@
 				<th>duration</th>
 			</tr>
 			<tr id="item">
-				<td class="activity_type"></td>
+				<td class="activityType"></td>
 				<td class="title"></td>
 				<td class="completed_at"></td>
 				<td class="distance-value"></td>
@@ -104,6 +115,5 @@
 						weather_condition : weather.find("Condition").text(),
 						weather_temperature : weather.find("Temperature").text(),
 						weather_temperatureunit 
-		</table>
 	</body>
 </html>
