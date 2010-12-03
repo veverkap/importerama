@@ -11,7 +11,7 @@
 		<script type="text/javascript" src="lib/scripts/chain.js"></script>
 		<script type="text/javascript">
 			var myFileStream = new air.FileStream();
-			var items = new Array();
+			var items = new Array()
 			function completed(event)
 			{ 
 				var str = myFileStream.readMultiByte(myFileStream.bytesAvailable, "iso-8859-1");
