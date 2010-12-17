@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<title>Runners World Import</title>
+		<link rel="stylesheet" href="lib/styles/style.css" media="all" type="text/css" />
+		<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		
+		<script type="text/javascript" src="lib/air/AIRIntrospector.js"></script> 
+		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
+		<script type="text/javascript" src="lib/scripts/config.js"></script>
+		<script type="text/javascript" src="lib/scripts/utils.js"></script>
+		<script type="text/javascript" src="lib/scripts/dailymile.js"></script>
+		
+		<script type="text/javascript" src="lib/scripts/chain.js"></script>
+		<script type="text/javascript">
+			var myFileStream = new air.FileStream();
+			var items = new Array();
+			function completed(event)
+			{ 
+				$("#ajax_loader").show();
+				var str = myFileStream.readMultiByte(myFileStream.bytesAvailable, "iso-8859-1");
+				parseXml(str);
+			} 
+			function readFile() {
+				var val = $('#xmlFile').val();
+				if (val.length > 3) {
+					var extension = val.substring(val.length - 3);
+					if (extension != "xml") {
+						alert('Invalid file type.');
+						$('#xmlFile').val("");
+					} else {
+						//read file
+						$("#ajax_loader").show();
+						var myFile = new air.File(); 
+						myFile = myFile.resolvePath(val);
+						myFileStream.addEventListener(air.Event.COMPLETE, completed);
+						myFileStream.openAsync(myFile, air.FileMode.READ); 
+					}
+				} else {
+					alert('Invalid file type.');
+					$('#xmlFile').val("");
+				}
+			}
+			function parseXml(data) {
+				$(data).find("EventCollection").children().each(function()
+				{
+					var weather = $(this).find("Weather");
+					var item = {
+						id : $(this).find("ID").text(),
+						activityType : parseActivityType(this.nodeName),
+						date : $(this).find("Date").text(),
+						time : $(this).find("Time").text(),
+						type : $(this).find("Type").text(),
+						weight : $(this).find("Weight").text(),
+						weightUnit : $(this).find("WeightUnit").text(),
+						courseName : $(this).find("CourseName").text(),
+						distance : $(this).find("Distance").text(),
+						distanceUnit : parseDistanceUnits($(this).find("DistanceUnit").text()),
+						duration : $(this).find("Duration").text(),
+						notes : $(this).find("Notes").text(),
+						weather_condition : weather.find("Condition").text(),
+						weather_temperature : weather.find("Temperature").text(),
+						weather_temperatureunit : weather.find("TemperatureUnit").text()
+					}
+					
+					if (item.activityType != "none") {
+						items[items.length] = item;
+					}
+				});
+				//"Run","Bike","Weights"
+				$('#parsed').items(items).chain(
+				{
+					'.completed_at': {
+						content: function(d,el) {
+							return d.date + " " + d.time;
+						}
+					},
+					'.distance': {
+						content: function(d,el) {
+							return d.distance + " " + d.distanceUnit;
+						}
+					},
+					'.checkboxItem': {
+						id: function(d,el) {
+							return d.id;
+						}
+					}
+				});
+				$("#ajax_loader").hide();
+				$("#rounded-corner").show();
+			}
+			
+		</script>
+	</head>
+	<body>
+		Choose the exported XML file:<br />
+		<input id="xmlFile" type="file" style="border: 1px solid #d2d2d2;"/><br />
+		<button id="parseBtn" onclick="readFile();">Parse File</button>
+		<br />
+		<img src="icons/ajax_loader.gif" id="ajax_loader" style="display: none;" />
+		<table width="100%" id="rounded-corner" style="display: none;">
+			<thead>
+				<tr id="header">
+					<th scope="col" class="toplefter" width="75">Send To DM</th>
+					<th>Type</th>
+					<th>Notes</th>
+					<th width="140">Date</th>
+					<th>Distance</th>
+					<th scope="col" class="toprighter">Duration</th>
+				</tr>
+			</thead>
+			<tfoot>
+	    		<tr>
+        			<td colspan="4" class="rounded-foot-left">&nbsp;</td>
+					<td class="rounded-foot-right">&nbsp;</td>
+        		</tr>
+			</tfoot>
+			<tbody id="parsed">
+			<tr id="item">
+				<td align="center"><input type="checkbox" class="checkboxItem" name="check" checked="checked" /></td>
+				<td class="activityType"></td>
+				<td class="notes"></td>
+				<td class="completed_at"></td>
+				<td class="distance"></td>
+				<td class="duration"></td>
+			</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

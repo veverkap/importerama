@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" media="all" href="lib/styles/style.css" />
+		<script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery-1.4.2.js"></script>
+		<script type="text/javascript">
+			var access_token;
+
+			// Reads the content of the application descriptor file
+            function setAccessToken(val) {
+				//alert('ui setting ' + val);
+                access_token = val;
+            }
+		    function reloader() {
+		        return "This is from the remote sandbox.";
+		    }
+
+			// Exposes the callMe() function to the parent frame's sandbox 
+			// by writing to window.childSandboxBridge. Note that the sandbox
+			// bridge exposes the function as "callMe".
+		    jQuery(window).load(function(){
+				//alert('loaded ui');
+		        window.childSandboxBridge = {'reloader': reloader, 'setAccessToken' : setAccessToken};
+				//alert(parentSandboxBridge.getAccessToken());
+		    });
+		</script>
+	</head>
+	<body>
+		UI
+	</body>
+</html>
