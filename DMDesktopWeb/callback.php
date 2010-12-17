@@ -24,7 +24,7 @@ function curl_post($url, array $post = NULL, array $options = array())
 $a = array("grant_type" => "authorization_code", 
            "client_id" => "dk91QOkPgzChAP8oqBOB5gUKEk8afmDF7demeCtS", 
            "client_secret" => "8ZgPyMAk2VAWdIFc2qrTXT7lnQxZwVO0XEcvv3RW", 
-           "redirect_uri" => "http://importerama.veverka.net/callback.php",
+           "redirect_uri" => "http://dmdesktop.veverka.net/callback.php",
            "code" => $_GET["code"]);
 $b = array();
 $val = json_decode(curl_post("https://api.dailymile.com/oauth/token", $a, $b));

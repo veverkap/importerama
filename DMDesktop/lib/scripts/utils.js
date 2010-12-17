@@ -12,14 +12,22 @@ function htmlErrorHandler(event) {
         message += "line:" + event.stackTrace[i].line +"\n"; 
         message += "function:" + event.stackTrace[i].functionName + "\n"; 
 	} 
-    alert(message); 
+    air.trace(message); 
 } 
 function CheckForUpdate() {
+	air.trace("CheckForUpdate");
 	appUpdater.configurationFile = new air.File("app:/updateConfig.xml"); 
 	//air.trace(appUpdater);
 	appUpdater.addEventListener(air.UpdateEvent.INITIALIZED, onUpdateInit);
+	appUpdater.addEventListener(air.StatusUpdateErrorEvent.UPDATE_ERROR, onUpdateError);
 	appUpdater.initialize();
 }
+function onUpdateError(e) {
+	air.trace("CheckForUpdate - Error");
+	alert('There was an error connecting to the update service.\r\nPlease make sure that you are connected to the Internet.');
+	appUpdater.cancelUpdate();
+}
 function onUpdateInit() {
+	air.trace("CheckForUpdate - init");
 	appUpdater.checkNow();
 }

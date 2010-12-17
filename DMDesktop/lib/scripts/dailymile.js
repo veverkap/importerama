@@ -6,13 +6,15 @@ Entry Ñ view an entry
 */
 function GetPersonDetails(username) {
 	//http://api.dailymile.com/people/username.json
-	$.getJSON('http://api.dailymile.com/people/' + username + '.json', function(data) {
+	$.getJSON(dailyMileURL + 'people/' + username + '.json', function(data) {
 		//alert(data.location);
 	});
 }
 
 function ValidateToken() {
-	var url = 'https://api.dailymile.com/people/me.json?oauth_token=' + access_token;
+	air.trace('ValidateToken');
+	air.trace(dailyMileURL);
+	var url = dailyMileURL + '/people/me.json?oauth_token=' + access_token;
 	$.ajax({
 		url: url,
 		success: function(data) { 
@@ -20,7 +22,17 @@ function ValidateToken() {
 			return true; 
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			if (XMLHttpRequest.status == "406") {
+			air.trace(textStatus);
+			if (XMLHttpRequest.status == "400") {
+				alert("There seems to be a problem with your network connection.\r\nPlease check your connection and restart the program.");
+				air.NativeApplication.nativeApplication.exit();
+				return false;
+			} else if (XMLHttpRequest.status == "406") {
+				access_token = null;
+				token_checked = true;
+				return false;
+			} else {
+				alert("There was an error connecting to the DailyMile website.\r\nPlease reauthenticate.");
 				access_token = null;
 				token_checked = true;
 				return false;
@@ -30,7 +42,7 @@ function ValidateToken() {
 }
 
 function WhoAmI() {
-	$.getJSON('https://api.dailymile.com/people/me.json?oauth_token=' + access_token, function(data) {
+	$.getJSON(dailyMileURL + '/people/me.json?oauth_token=' + access_token, function(data) {
 		$("#logged_in_user").html(data.username);
 		$("#logged_in_user_icon").attr('src', data.photo_url);
 	});		
@@ -111,7 +123,7 @@ function workoutDetails(d) {
 }
 
 function YouAndFriends() {
-	$.getJSON('http://importerama.veverka.net/friends.json', function(data) {
+	$.getJSON(dailyMileURL + 'entries/friends.json', function(data) {
 		$('#demo-contact').items(data.entries).chain(
 				/* Custom data binding */
 				{
