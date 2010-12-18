@@ -48,7 +48,11 @@
             Exposed.trace = function(str) {
                 air.trace(str);
             }
-            
+
+			function loadImport(frame_id, url) {
+				document.getElementById(frame_id).src = url;
+			}
+			            
 			function newRedirect(frame_id, url) {
 				document.getElementById(frame_id).src = url;
 				stream_reloader();
@@ -81,7 +85,7 @@
 				setAccessToken(access_token);
 				setAccessTokenHeader(access_token);
 				setAccessTokenMenu(access_token);
-				window.nativeWindow.maximize(); 
+				//window.nativeWindow.maximize(); 
             }
        </script>
 	</head>

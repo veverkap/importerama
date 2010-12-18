@@ -20,20 +20,11 @@
 		    }
 			
 			
-			function popupRunnersWorld() {
-				parentSandboxBridge.createNativeWindow("runners_world_import.html");
-			}
-			function redirectUrl(url) {
-				parentSandboxBridge.newRedirect('friends_stream', url);
+			function loadRunnersWorldImporter() {
+				parentSandboxBridge.loadURLInFriendStreamFrame("runners_world_import.html");
 			}
 			
-			function reloadStream() {
-				parentSandboxBridge.reloadStream();
-			}
-			// Exposes the callMe() function to the parent frame's sandbox 
-			// by writing to window.childSandboxBridge. Note that the sandbox
-			// bridge exposes the function as "callMe".
-		    jQuery(window).load(function(){
+			jQuery(window).load(function(){
 				//alert('loaded ui');
 		        window.childSandboxBridge = {'reloader': reloader, 'setAccessToken' : setAccessToken};
 				
@@ -45,7 +36,7 @@
 	<div id="menu">
 		<ul>
 		<li><a href="#" onclick="reloadStream();">Refresh</a></li>
-		<li><a href="#" onclick="popupRunnersWorld();" target="_self">Parse RunnersWorld File</a></li>
+		<li><a href="#" onclick="loadRunnersWorldImporter();" target="_self">Parse RunnersWorld File</a></li>
 	</ul>
 </div>
 </div>

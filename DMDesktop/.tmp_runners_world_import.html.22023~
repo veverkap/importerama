@@ -40,6 +40,14 @@
 					$('#xmlFile').val("");
 				}
 			}
+			
+			function makeWindowModal() {
+   				nativeWindow.activate();
+				nativeWindow.alwaysInFront = true;
+    			nativeWindow.addEventListener('deactivate', function (e) {nativeWindow.activate()});
+    			nativeWindow.addEventListener('displayStateChanging', function (e) {e.preventDefault()});
+			}
+			
 			function parseXml(data) {
 				$(data).find("EventCollection").children().each(function()
 				{
@@ -87,16 +95,42 @@
 				});
 				$("#ajax_loader").hide();
 				$("#rounded-corner").show();
+				$("#sendBtn").show();
 			}
-			
+			function sendToDM() {
+				$("input:checked").each(function(data) {
+					air.trace(data);
+				});
+			}
 		</script>
 	</head>
 	<body>
 		Choose the exported XML file:<br />
-		<input id="xmlFile" type="file" style="border: 1px solid #d2d2d2;"/><br />
-		<button id="parseBtn" onclick="readFile();">Parse File</button>
+		<table>
+			<tr>
+			<td><input id="xmlFile" type="file" /></td>
+			<td>
+				<div class="buttons"> 
+					<button onclick="readFile();" class="positive"> 
+   			 		<img src="/icons/tick.png" alt=""/> 
+    				Parse File
+					</button>
+				</div>
+			</td>
+			<td>
+				<div class="buttons"> 
+					<button id="sendBtn" onclick="sendToDM();" class="positive" style="display: none;"> 
+   			 		<img src="/icons/application_get.png" alt=""/> 
+    				Send Checked To DailyMile
+					</button>
+				</div>
+			</td>
+			</tr>
+			</table>
+
 		<br />
 		<img src="icons/ajax_loader.gif" id="ajax_loader" style="display: none;" />
+		
 		<table width="100%" id="rounded-corner" style="display: none;">
 			<thead>
 				<tr id="header">
