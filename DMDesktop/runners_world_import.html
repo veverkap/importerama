@@ -49,6 +49,8 @@
 			}
 			
 			function parseXml(data) {
+				$('body').data('foo', 52);
+				air.trace($('body').data('foo'));
 				$(data).find("EventCollection").children().each(function()
 				{
 					var weather = $(this).find("Weather");
@@ -72,6 +74,7 @@
 					
 					if (item.activityType != "none") {
 						items[items.length] = item;
+						$('body').data(item.id, item);
 					}
 				});
 				//"Run","Bike","Weights"
@@ -97,20 +100,19 @@
 				$("#rounded-corner").show();
 				$("#sendBtn").show();
 			}
+			
+			function getItemById(id) {
+				var item = $('body').data(id);
+				return item;
+			}
+			
 			function sendToDM() {
-				alert('send');
+				$("input:checked").each(function() {
+					var id = this.id;
+					var item = getItemById(id);
+				});
 			}
 		</script>
-		<style type="text/css">
-			input.btn {
-				color:#050; 
-				font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
-				background-color:#fed; 
-				border:1px solid; 
-				border-color: #696 #363 #363 #696;
-			}
-
-		</style>
 	</head>
 	<body>
 		Choose the exported XML file:<br />
