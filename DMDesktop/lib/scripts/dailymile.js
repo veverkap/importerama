@@ -238,8 +238,10 @@ media[type], string
 media[url], string
 	the URL to the photo
 */
-function createEntry() {
-	
+function createEntry(entryDetails) {
+	$.getJSON(dailyMileURL + 'entries.json', details, function(data) {
+		alert(data);
+	});
 }
 /*
 Delete Entry Ñ delete an entry
