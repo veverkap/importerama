@@ -14,6 +14,8 @@
 		<script type="text/javascript">
 			var myFileStream = new air.FileStream();
 			var items = new Array();
+			var access_token;
+			
 			function completed(event)
 			{ 
 				$("#ajax_loader").show();
@@ -48,9 +50,24 @@
     			nativeWindow.addEventListener('displayStateChanging', function (e) {e.preventDefault()});
 			}
 			
+			function parseDuration(duration) {
+				
+				var splitted = duration.split(":");
+				var seconds = 0;
+				if (splitted.length == 3) {
+					seconds = seconds + (parseInt(splitted[0])*3600);
+					seconds = seconds + (parseInt(splitted[1])*60);
+					seconds = seconds + parseInt(splitted[2]);
+				} else if (splitted.length == 2) {
+					seconds = seconds + (parseInt(splitted[0])*60);
+					seconds = seconds + parseInt(splitted[1]);
+				} else if (splitted.length == 1) {
+					seconds = seconds + parseInt(splitted[0]);
+				}
+				return seconds;
+			}
+			
 			function parseXml(data) {
-				$('body').data('foo', 52);
-				air.trace($('body').data('foo'));
 				$(data).find("EventCollection").children().each(function()
 				{
 					var weather = $(this).find("Weather");
@@ -66,6 +83,7 @@
 						distance : $(this).find("Distance").text(),
 						distanceUnit : parseDistanceUnits($(this).find("DistanceUnit").text()),
 						duration : $(this).find("Duration").text(),
+						durationSeconds : parseDuration($(this).find("Duration").text()),
 						notes : $(this).find("Notes").text(),
 						weather_condition : weather.find("Condition").text(),
 						weather_temperature : weather.find("Temperature").text(),
@@ -106,15 +124,31 @@
 				return item;
 			}
 			
+			function querySt(ji) {
+				hu = window.location.search.substring(1);
+				gy = hu.split("&");
+				for (i=0;i<gy.length;i++) {
+					ft = gy[i].split("=");
+					if (ft[0] == ji) {
+						return ft[1];
+					}
+				}
+			}
+			
+			function parseQueryString() {
+				access_token = querySt("token");
+			}
 			function sendToDM() {
 				$("input:checked").each(function() {
 					var id = this.id;
+					air.trace(id);
 					var item = getItemById(id);
+					createEntry(item);
 				});
 			}
 		</script>
 	</head>
-	<body>
+	<body onload="parseQueryString()">
 		Choose the exported XML file:<br />
 		<table>
 			<tr>
@@ -160,7 +194,7 @@
 			</tfoot>
 			<tbody id="parsed">
 			<tr id="item">
-				<td align="center"><input type="checkbox" class="checkboxItem" name="check" checked="checked" /></td>
+				<td align="center"><input type="checkbox" class="checkboxItem" name="check"  /></td>
 				<td class="activityType"></td>
 				<td class="notes"></td>
 				<td class="completed_at"></td>

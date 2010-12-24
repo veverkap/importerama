@@ -21,7 +21,7 @@
 			
 			
 			function popupRunnersWorld() {
-				parentSandboxBridge.createNativeWindow("runners_world_import.html");
+				parentSandboxBridge.createNativeWindow("runners_world_import.html?token=" + access_token);
 			}
 			function redirectUrl(url) {
 				parentSandboxBridge.newRedirect('friends_stream', url);

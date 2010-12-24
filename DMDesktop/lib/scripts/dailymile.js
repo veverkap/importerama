@@ -123,7 +123,7 @@ function workoutDetails(d) {
 }
 
 function YouAndFriends() {
-	$.getJSON(dailyMileURL + 'entries/friends.json', function(data) {
+	$.getJSON(dailyMileURL + 'entries/friends.json?oauth_token=' + access_token, function(data) {
 		$('#demo-contact').items(data.entries).chain(
 				/* Custom data binding */
 				{
@@ -186,7 +186,7 @@ function YouAndFriends() {
 					},
 					'.datetime': {
 						content: function(d,el) {
-							var dateObj = loadDate(d.created_at.toString());
+							var dateObj = loadDate(d.at.toString());
 							return textDateString(dateObj);
 						}
 					}
@@ -239,8 +239,29 @@ media[url], string
 	the URL to the photo
 */
 function createEntry(entryDetails) {
-	$.getJSON(dailyMileURL + 'entries.json', details, function(data) {
+	var details = {
+		message : entryDetails.notes,
+		workout: {
+			activity_type: entryDetails.activityType,
+			completed_at: entryDetails.date + " " + entryDetails.time,
+			distance: {
+				value: entryDetails.distance,
+				units: entryDetails.distanceUnit
+			},
+			duration: entryDetails.durationSeconds
+		}
+	}
+	air.trace(access_token);
+	air.trace(details.message);
+	air.trace(details.workout.activity_type);
+	air.trace(details.workout.completed_at);
+	air.trace(details.workout.distance.value);
+	air.trace(details.workout.distance.units);
+	air.trace(details.workout.duration);
+	$.post(dailyMileURL + 'entries.json?oauth_token=' + access_token, details, function(data) {
+		//air.Introspector.Console.log(data);
 		alert(data);
+		air.trace("DONE");
 	});
 }
 /*
